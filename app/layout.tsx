@@ -1,6 +1,7 @@
+// app/layout.tsx
 import "./globals.css";
 import { Poppins } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+import Providers from "./providers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,14 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={poppins.variable} suppressHydrationWarning>
       <body className="font-sans bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           {children}
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

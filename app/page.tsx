@@ -5,8 +5,9 @@ import WritingArea from "./components/WritingArea";
 import FocusTimerModal from "./components/FocusTimerModal";
 import NotebookDrawer from "./components/NotebookDrawer";
 import { AnimatePresence, motion } from "framer-motion";
+import AuthModal from "./components/AuthModal"; // Make sure this exists!
 
-// Timer Encouragement Modal — closes on overlay or buttons
+// Encouragement modal — closes on overlay or buttons
 function EncouragementModal({
   open,
   onForceStop,
@@ -24,14 +25,14 @@ function EncouragementModal({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        onClick={onClose} // Overlay click closes modal
+        onClick={onClose}
       >
         <motion.div
           className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg max-w-xs w-full text-center border dark:border-gray-700"
           initial={{ scale: 0.95, opacity: 0, y: 40 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.9, opacity: 0, y: -40 }}
-          onClick={(e) => e.stopPropagation()} // Prevent close if inside box
+          onClick={(e) => e.stopPropagation()}
         >
           <h3 className="font-bold text-lg mb-2 text-gray-800 dark:text-gray-100">
             Stay Focused!
@@ -61,6 +62,8 @@ function EncouragementModal({
 export default function Home() {
   // Drawer state
   const [drawerOpen, setDrawerOpen] = useState(false);
+  // Auth modal state
+  const [authOpen, setAuthOpen] = useState(false);
 
   // Timer state
   const [timerOpen, setTimerOpen] = useState(false);
@@ -127,6 +130,7 @@ export default function Home() {
         onMenuClick={() => setDrawerOpen(true)}
         onTimerClick={handleTimerIconClick}
         timerDisplay={timerDisplay}
+        onAuthClick={() => setAuthOpen(true)} // Pass down!
       />
 
       {/* Notebook Drawer */}
@@ -163,6 +167,7 @@ export default function Home() {
         onForceStop={handleForceStop}
         onClose={() => setEncouragementOpen(false)}
       />
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
 
       <footer className="text-center text-xs text-gray-400 py-4">
         Made by Introvert

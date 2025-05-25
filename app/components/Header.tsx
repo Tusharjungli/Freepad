@@ -1,16 +1,18 @@
 // components/Header.tsx
 "use client";
 import { useState, useEffect } from "react";
-import { Sun, Moon, Notebook, Timer } from "lucide-react";
+import { Sun, Moon, Notebook, Timer, User } from "lucide-react"; // User icon for auth
 
 export default function Header({
   onMenuClick,
   onTimerClick,
   timerDisplay,
+  onAuthClick, // NEW: authentication click handler
 }: {
   onMenuClick?: () => void;
   onTimerClick?: () => void;
   timerDisplay?: string | null;
+  onAuthClick?: () => void; // NEW: authentication click handler type
 }) {
   const [dark, setDark] = useState(false);
 
@@ -52,7 +54,7 @@ export default function Header({
           FreePad
         </span>
       </div>
-      {/* Actions on right: Timer Display + Timer Button + Theme */}
+      {/* Actions on right: Timer Display + Timer Button + Theme + Auth */}
       <div className="flex items-center gap-2 ml-auto">
         {timerDisplay && (
           <span className="flex items-center gap-1 text-green-600 dark:text-green-400 font-semibold bg-gray-100 dark:bg-gray-800 px-2.5 py-1.5 rounded-md shadow transition">
@@ -75,6 +77,15 @@ export default function Header({
           type="button"
         >
           {dark ? <Sun size={22} /> : <Moon size={22} />}
+        </button>
+        {/* NEW: Auth Button */}
+        <button
+          onClick={onAuthClick}
+          className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          aria-label="Login or Sign Up"
+          type="button"
+        >
+          <User size={22} className="text-gray-700 dark:text-gray-200" />
         </button>
       </div>
     </header>
